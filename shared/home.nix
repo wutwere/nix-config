@@ -13,6 +13,10 @@
   home.packages = with pkgs; [
     (callPackage ./wally-package-types {})
 
+    cava
+    nerdfetch
+    delta
+    bat
     gemini-cli
     stow
     rojo
@@ -23,7 +27,6 @@
     go
     lazygit
     nodejs_24
-    tmux
     alejandra
     stylua
     selene
@@ -32,6 +35,8 @@
     nixd
     gcc
     tree-sitter
+
+    btop # replacement of htop/nmon
 
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them

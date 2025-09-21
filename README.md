@@ -12,4 +12,5 @@ sudo nixos-rebuild switch --flake .#macbook
     - [ ] or migrate to nixvim/pure nix
 - [ ] start ricing
 - [ ] fix darwin dotfiles
+- [ ] set up secrets
 
