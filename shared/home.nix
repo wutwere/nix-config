@@ -19,20 +19,25 @@
     bat
     gemini-cli
     stow
-    rojo
+
     lua
+    lua-language-server
+    # wally in other home.nix
+    rojo
     luau
     luau-lsp
+
     fd
     go
     lazygit
     nodejs_24
-    alejandra
     stylua
     selene
-    lua-language-server
     gopls
+
+    alejandra
     nixd
+
     gcc
     tree-sitter
 
@@ -42,7 +47,6 @@
     # feel free to add your own or remove some of them
 
     neofetch
-    yazi # terminal file manager
 
     # archives
     zip
@@ -96,6 +100,7 @@
       lg = "lazygit";
       ls = "eza";
       l = "eza -al";
+      nd = "nix develop -c fish";
     };
   };
 
@@ -146,12 +151,6 @@
       set -gu default-command
       set -g default-shell "$SHELL"
 
-      # only show status bar if there is more than one window
-      set -g status off
-      set-hook -g after-new-window      'if "[ #{session_windows} -gt 1 ]" "set status on"'
-      set-hook -g pane-focus-out        'if "[ #{session_windows} -lt 2 ]" "set status off"'
-      set-hook -g pane-focus-in         'if "[ #{session_windows} -lt 2 ]" "set status off"'
-
       setw -g mode-keys vi
 
       bind -T copy-mode-vi v send -X begin-selection
@@ -183,5 +182,20 @@
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+    shellWrapperName = "y";
+    settings = {
+      mgr = {
+        show_hidden = true;
+      };
+      preview = {
+        max_width = 1000;
+        max_height = 1000;
+      };
+    };
   };
 }
