@@ -7,11 +7,27 @@
     ".config/nvim" = {
       source = dotfiles + "/nvim/.config/nvim";
     };
+    ".config/nixpkgs/config.nix".text = ''
+      {
+        allowUnfree = true;
+      }
+    '';
   };
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     (callPackage ./wally-package-types {})
+
+    (python3.withPackages (ps: with ps; [pwntools cryptography]))
+    pyright
+
+    frida-tools
+    steam-run
+
+    rust-analyzer
+    rustc
+    cargo
+    clippy
 
     cava
     nerdfetch
@@ -39,6 +55,8 @@
     nixd
 
     gcc
+    clang-tools
+
     tree-sitter
 
     btop # replacement of htop/nmon
@@ -199,3 +217,4 @@
     };
   };
 }
+

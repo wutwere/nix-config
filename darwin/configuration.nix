@@ -65,4 +65,5 @@
   services.skhd = {
     enable = true;
   };
+  nixpkgs.config.allowUnfree = true;
 }
