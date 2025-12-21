@@ -35,6 +35,8 @@
     # darwin has to get wally from brew
     wally
 
+    steam-run
+
     # networking tools
     mtr # A network diagnostic tool
     iperf3
