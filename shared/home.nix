@@ -16,37 +16,28 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    (callPackage ./wally-package-types {})
+    # (python3.withPackages (ps: with ps; [pwntools cryptography]))
+    # pyright
 
-    (python3.withPackages (ps: with ps; [pwntools cryptography]))
-    pyright
+    # nodejs_24
 
-    frida-tools
+    # rust-analyzer
+    # rustc
+    # cargo
+    # clippy
+    # cargo-cross
 
-    rust-analyzer
-    rustc
-    cargo
-    clippy
-    cargo-cross
+    # go
+    # gopls
+
+    # frida-tools
 
     # cava # new update broken on mac
     nerdfetch
+    fastfetch
     bat
-    stow
-
-    lua
-    lua-language-server
-    # wally in other home.nix
-    rojo
-    luau
-    luau-lsp
 
     fd
-    go
-    nodejs_24
-    stylua
-    selene
-    gopls
 
     alejandra
     nixd
@@ -56,12 +47,13 @@
 
     tree-sitter
 
-    btop # replacement of htop/nmon
+    btop
+
+    blesh
+    gawk
 
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
-
-    neofetch
 
     # archives
     zip
@@ -80,9 +72,6 @@
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
-
-    blesh
-    gawk
   ];
 
   # basic configuration of git, please change to your own
