@@ -29,11 +29,9 @@
     clippy
     cargo-cross
 
-    cava
+    # cava # new update broken on mac
     nerdfetch
-    delta
     bat
-    gemini-cli
     stow
 
     lua
@@ -45,7 +43,6 @@
 
     fd
     go
-    lazygit
     nodejs_24
     stylua
     selene
@@ -83,18 +80,51 @@
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
+
+    blesh
+    gawk
   ];
 
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "wutwere";
-    userEmail = "62412610+wutwere@users.noreply.github.com";
+    settings.user = {
+      name = "wutwere";
+      email = "62412610+wutwere@users.noreply.github.com";
+      pull.rebase = true;
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      dark = true;
+      side-by-side = true;
+      line-numbers = true;
+    };
+  };
+
+  programs.lazygit = {
+    enable = true;
+    enableBashIntegration = true;
+    settings = {
+      git = {
+        pagers = [
+          {
+            colorArg = "always";
+            pager = "delta --dark --paging=never";
+          }
+        ];
+      };
+    };
   };
 
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
+    enableBashIntegration = false;
     # custom settings
     settings = {
       add_newline = false;
@@ -109,19 +139,58 @@
     defaultEditor = true;
   };
 
-  programs.fish = {
+  programs.bash = {
     enable = true;
-    shellAbbrs = {
-      cd = "z";
-      v = "nvim";
-      lg = "lazygit";
-      ls = "eza";
-      l = "eza -al";
-      nd = "nix develop -c fish";
-    };
-  };
+    enableCompletion = true;
+    initExtra = ''
+      # Source ble.sh for syntax highlighting, autosuggestions, and more
+      if [[ $- == *i* ]]; then
+        source ${pkgs.blesh}/share/blesh/ble.sh --noattach
+      fi
 
-  programs.bash.enable = true;
+      # ble-sabbrev provides Fish-like abbreviations that expand on space
+      if [[ ''${_ble_version-} ]]; then
+        # Enable history sharing (equivalent to fish behavior)
+        bleopt history_share=1
+
+        # Increase auto-complete delay to avoid lag
+        bleopt complete_auto_delay=200
+
+        ble-sabbrev cd=z
+        ble-sabbrev v=nvim
+        ble-sabbrev ls='eza --icons --group-directories-first'
+        ble-sabbrev l='eza -al --icons --group-directories-first'
+
+        # Initialize Starship (must be done AFTER ble.sh)
+        eval "$(starship init bash)"
+
+        # Initialize zoxide
+        eval "$(zoxide init bash)"
+        ble-import -f integration/zoxide
+
+        # Use ble.sh's native FZF integration (standard fzf-key-bindings are incompatible)
+        ble-import integration/fzf-completion
+        ble-import integration/fzf-key-bindings
+
+        # Custom widget to expand abbreviations on Enter
+        function ble/widget/project/accept-line {
+          ble/widget/sabbrev-expand
+          ble/widget/accept-line
+        }
+        ble-bind -f 'RET' 'project/accept-line'
+        ble-bind -f 'C-m' 'project/accept-line'
+
+        # Disable visual bell (no white line/flash)
+        bleopt edit_vbell=
+        # Remove white background from autocomplete ghost text
+        ble-face -s auto_complete fg=242,bg=none
+        ble-face -s vbell_erase bg=none
+
+        # Attach ble.sh
+        ble-attach
+      fi
+    '';
+  };
 
   programs.tmux = {
     enable = true;
@@ -167,13 +236,16 @@
       set -g mouse on
       set -g repeat-time 0
       set -g mode-style "fg=black,bg=white"
-      set -gu default-command
       set -g default-shell "$SHELL"
 
       setw -g mode-keys vi
 
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+
+      # scroll one line instead of chunks
+      bind -T copy-mode-vi WheelUpPane send-keys -X scroll-up
+      bind -T copy-mode-vi WheelDownPane send-keys -X scroll-down
 
       bind -r h select-pane -L
       bind -r j select-pane -D
@@ -195,7 +267,6 @@
 
   programs.zoxide = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   programs.gh = {
@@ -206,7 +277,7 @@
   programs.yazi = {
     enable = true;
     package = pkgs.yazi;
-    enableFishIntegration = true;
+    enableBashIntegration = true;
     shellWrapperName = "y";
     settings = {
       mgr = {
@@ -243,6 +314,26 @@
 
   programs.fzf = {
     enable = true;
-    enableFishIntegration = true;
+    enableBashIntegration = false;
+  };
+
+  programs.gemini-cli = {
+    enable = true;
+    settings = {
+      security = {
+        auth = {
+          selectedType = "oauth-personal";
+        };
+      };
+      general = {
+        previewFeatures = true;
+      };
+      mcpServers = {
+        nixos = {
+          command = "nix";
+          args = ["run" "github:utensils/mcp-nixos" "--"];
+        };
+      };
+    };
   };
 }

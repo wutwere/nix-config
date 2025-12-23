@@ -24,9 +24,9 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  programs.fish.enable = true;
+  programs.bash.enable = true;
   users.knownUsers = ["robert"];
-  users.users.robert.shell = pkgs.fish;
+  users.users.robert.shell = pkgs.bashInteractive;
   users.users.robert.home = "/Users/robert";
   users.users.robert.uid = 501;
   system.primaryUser = "robert";

@@ -34,10 +34,6 @@
     git
     vim
     wget
-    fishPlugins.hydro
   ];
-  programs.fish = {
-    enable = true;
-  };
   nixpkgs.config.allowUnfree = true;
 }
