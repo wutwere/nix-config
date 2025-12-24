@@ -24,23 +24,45 @@
     selene
     stylua
     lua-language-server
+    luau
+    luau-lsp
+    (
+      pkgs.rustPlatform.buildRustPackage rec {
+        pname = "wally-package-types";
+        version = "1.6.2";
 
-    # (python3.withPackages (ps: with ps; [pwntools cryptography]))
-    # pyright
+        src = pkgs.fetchFromGitHub {
+          owner = "JohnnyMorganz";
+          repo = pname;
+          rev = "v${version}";
+          sha256 = "sha256-ynd5z2pbhGnPTKuJQG4EJL/Zy/X9lTCjSi8Cd6nRSsA=";
+        };
 
-    # nodejs_24
+        cargoHash = "sha256-LjtnArnv46GzbHnpT3wFNrjCv78stfFc6Kx9RefK+U8=";
 
-    # rust-analyzer
-    # rustc
-    # cargo
-    # clippy
+        doCheck = false;
+      }
+    )
+
+    (python3.withPackages (ps: with ps; [pwntools cryptography]))
+    pyright
+    ruff
+
+    nodejs_24
+    vtsls
+    vscode-json-languageserver
+
+    rust-analyzer
+    rustc
+    cargo
+    clippy
     # cargo-cross
 
-    # go
-    # gopls
+    go
+    gopls
 
-    # gcc
-    # clang-tools
+    gcc
+    clang-tools
 
     # frida-tools
 
