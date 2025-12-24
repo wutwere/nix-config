@@ -16,6 +16,10 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    selene
+    stylua
+    lua-language-server
+
     # (python3.withPackages (ps: with ps; [pwntools cryptography]))
     # pyright
 
@@ -30,6 +34,9 @@
     # go
     # gopls
 
+    # gcc
+    # clang-tools
+
     # frida-tools
 
     # cava # new update broken on mac
@@ -41,9 +48,6 @@
 
     alejandra
     nixd
-
-    gcc
-    clang-tools
 
     tree-sitter
 
@@ -205,8 +209,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "wutwere";
             repo = "rose-pine-tmux";
-            rev = "ac44508cbc78824ac66288c0b8248f14a883dd15";
-            sha256 = "sha256-xvZ6FxMWQDjaqswWJdoRAAuObqRNlU5+KCNvkj94buw=";
+            rev = "3cda77b57acb2c5714dcce8408d4ba04ee985572";
+            sha256 = "sha256-IlQeDMRVFJ+XwhqgNhcOnLZxk08tEL2m0U+DAcWalAI=";
           };
         }
       ))
@@ -221,10 +225,11 @@
       set -g history-limit 50000       # increase history size (from 2,000)
       set -g renumber-windows on       # renumber all windows when any window is closed
       set -g set-clipboard on          # use system clipboard
-      set -g status-position top       # macOS / darwin style
+      set -g status-position bottom    # macOS / darwin style
       set -g mouse on
       set -g repeat-time 0
       set -g mode-style "fg=black,bg=white"
+      set -g status-justify centre
       set -g default-shell "$SHELL"
 
       setw -g mode-keys vi
