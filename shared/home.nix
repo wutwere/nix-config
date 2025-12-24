@@ -14,6 +14,11 @@
     '';
   };
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     selene
@@ -53,7 +58,8 @@
 
     btop
 
-    blesh
+    nix-your-shell
+    zsh-abbr
     gawk
 
     # here is some command line tools I use frequently
@@ -101,7 +107,7 @@
 
   programs.lazygit = {
     enable = true;
-    enableBashIntegration = true;
+    enableZshIntegration = true;
     settings = {
       git = {
         pagers = [
@@ -117,7 +123,7 @@
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
-    enableBashIntegration = false;
+    enableZshIntegration = true;
     # custom settings
     settings = {
       add_newline = false;
@@ -132,56 +138,35 @@
     defaultEditor = true;
   };
 
-  programs.bash = {
+  programs.zsh = {
     enable = true;
     enableCompletion = true;
-    initExtra = ''
-      # Source ble.sh for syntax highlighting, autosuggestions, and more
-      if [[ $- == *i* ]]; then
-        source ${pkgs.blesh}/share/blesh/ble.sh --noattach
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    autocd = true;
+
+    history = {
+      share = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+    };
+
+    initContent = ''
+      # Nix-your-shell for seamless shell integration in nix-shell/nix develop
+      if command -v nix-your-shell > /dev/null; then
+        nix-your-shell zsh | source /dev/stdin
       fi
 
-      # ble-sabbrev provides Fish-like abbreviations that expand on space
-      if [[ ''${_ble_version-} ]]; then
-        # Enable history sharing (equivalent to fish behavior)
-        bleopt history_share=1
+      # Source zsh-abbr for Fish-like abbreviations
+      export ABBR_QUIET=1
+      export ABBR_QUIETER=1
+      source ${pkgs.zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.zsh
 
-        # Increase auto-complete delay to avoid lag
-        bleopt complete_auto_delay=200
-
-        ble-sabbrev cd=z
-        ble-sabbrev v=nvim
-        ble-sabbrev ls='eza --icons --group-directories-first'
-        ble-sabbrev l='eza -al --icons --group-directories-first'
-
-        # Initialize Starship (must be done AFTER ble.sh)
-        eval "$(starship init bash)"
-
-        # Initialize zoxide
-        eval "$(zoxide init bash)"
-        ble-import -f integration/zoxide
-
-        # Use ble.sh's native FZF integration (standard fzf-key-bindings are incompatible)
-        ble-import integration/fzf-completion
-        ble-import integration/fzf-key-bindings
-
-        # Custom widget to expand abbreviations on Enter
-        function ble/widget/project/accept-line {
-          ble/widget/sabbrev-expand
-          ble/widget/accept-line
-        }
-        ble-bind -f 'RET' 'project/accept-line'
-        ble-bind -f 'C-m' 'project/accept-line'
-
-        # Disable visual bell (no white line/flash)
-        bleopt edit_vbell=
-        # Remove white background from autocomplete ghost text
-        ble-face -s auto_complete fg=242,bg=none
-        ble-face -s vbell_erase bg=none
-
-        # Attach ble.sh
-        ble-attach
-      fi
+      # Abbreviations (expand on space)
+      abbr --force cd=z > /dev/null 2>&1
+      abbr --force v=nvim > /dev/null 2>&1
+      abbr --force ls='eza --icons --group-directories-first' > /dev/null 2>&1
+      abbr --force l='eza -al --icons --group-directories-first' > /dev/null 2>&1
     '';
   };
 
@@ -271,7 +256,7 @@
   programs.yazi = {
     enable = true;
     package = pkgs.yazi;
-    enableBashIntegration = true;
+    enableZshIntegration = true;
     shellWrapperName = "y";
     settings = {
       mgr = {
@@ -308,7 +293,7 @@
 
   programs.fzf = {
     enable = true;
-    enableBashIntegration = false;
+    enableZshIntegration = true;
   };
 
   programs.gemini-cli = {

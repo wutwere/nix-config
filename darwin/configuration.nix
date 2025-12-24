@@ -24,9 +24,9 @@
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  programs.bash.enable = true;
+  programs.zsh.enable = true;
   users.knownUsers = ["robert"];
-  users.users.robert.shell = pkgs.bashInteractive;
+  users.users.robert.shell = pkgs.zsh;
   users.users.robert.home = "/Users/robert";
   users.users.robert.uid = 501;
   system.primaryUser = "robert";
