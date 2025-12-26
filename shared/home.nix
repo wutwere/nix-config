@@ -211,6 +211,13 @@
           set -g @session-wizard-width 50
         '';
       }
+      {
+        plugin = tmuxPlugins.tmux-thumbs;
+        extraConfig = ''
+          set -g @thumbs-unique enabled
+          set -g @thumbs-command 'echo -n {} | tmux load-buffer -w -'
+        '';
+      }
       (tmuxPlugins.rose-pine.overrideAttrs (
         _: {
           src = pkgs.fetchFromGitHub {
@@ -237,12 +244,14 @@
       set -g repeat-time 0
       set -g mode-style "fg=black,bg=white"
       set -g status-justify centre
+      set -g popup-border-style "fg=red"
+      set -g popup-border-lines "rounded"
       set -g default-shell "$SHELL"
 
       setw -g mode-keys vi
 
       bind -T copy-mode-vi v send -X begin-selection
-      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "tmux load-buffer -w -"
 
       # scroll one line instead of chunks
       bind -T copy-mode-vi WheelUpPane send-keys -X scroll-up
