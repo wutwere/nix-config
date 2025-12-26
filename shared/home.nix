@@ -189,6 +189,13 @@
       abbr --force v=nvim > /dev/null 2>&1
       abbr --force ls='eza --icons --group-directories-first' > /dev/null 2>&1
       abbr --force l='eza -al --icons --group-directories-first' > /dev/null 2>&1
+
+      # zsh-vi-mode
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+      function zvm_after_init() {
+        zvm_bindkey viins '^R' fzf-history-widget
+      }
     '';
   };
 
