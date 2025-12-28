@@ -26,6 +26,7 @@
     lua-language-server
     luau
     luau-lsp
+    rojo
     (
       pkgs.rustPlatform.buildRustPackage rec {
         pname = "wally-package-types";
