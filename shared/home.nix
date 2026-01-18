@@ -231,8 +231,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "wutwere";
             repo = "rose-pine-tmux";
-            rev = "3cda77b57acb2c5714dcce8408d4ba04ee985572";
-            sha256 = "sha256-IlQeDMRVFJ+XwhqgNhcOnLZxk08tEL2m0U+DAcWalAI=";
+            rev = "763baa023e4ef771d640cda3ea45bcfc8e4bebf3";
+            sha256 = "sha256-dir5K6fLSbxiBN7NTaURm3TJYD/koFOvjMEsVNpfVEA";
           };
         }
       ))
@@ -280,6 +280,9 @@
       bind -r x kill-pane
       bind -r w kill-window
       bind -r t new-window
+
+      bind -r U 'copy-mode; send-keys -X halfpage-up'
+      bind -r D 'copy-mode; send-keys -X halfpage-down'
     '';
   };
 
