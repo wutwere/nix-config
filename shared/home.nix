@@ -231,8 +231,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "wutwere";
             repo = "rose-pine-tmux";
-            rev = "763baa023e4ef771d640cda3ea45bcfc8e4bebf3";
-            sha256 = "sha256-dir5K6fLSbxiBN7NTaURm3TJYD/koFOvjMEsVNpfVEA";
+            rev = "bd7521651485eb6c3ede94d6dd6b7d521ec5c0a9";
+            sha256 = "sha256-ARwOoUjE4ZxuMkyYtgXrpOmr4fHf/68sSSCmpzajwi4";
           };
         }
       ))

@@ -59,11 +59,11 @@
     ];
   };
 
-  services.yabai = {
-    enable = true;
-  };
-  services.skhd = {
-    enable = true;
-  };
+  # services.yabai = {
+  #   enable = true;
+  # };
+  # services.skhd = {
+  #   enable = true;
+  # };
   nixpkgs.config.allowUnfree = true;
 }

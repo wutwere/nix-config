@@ -20,11 +20,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1767414942,
-        "narHash": "sha256-AxXI+HLgQWhZAgDMnUvQ6mdjYrD8JAclGqX1fPEX/mk=",
+        "lastModified": 1768776437,
+        "narHash": "sha256-cQF6PptwnKs00gyLjlwYikxSJPVwyUrCQW96mwfGRCo=",
         "owner": "wutwere",
         "repo": "dotfiles",
-        "rev": "474586c6c9328ccca078add3fa5e7e3ad24683e2",
+        "rev": "cbac207709da7b19a36731a5cfe2d7256f797a2a",
         "type": "github"
       },
       "original": {
