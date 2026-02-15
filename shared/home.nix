@@ -44,6 +44,23 @@
         doCheck = false;
       }
     )
+    (
+      pkgs.rustPlatform.buildRustPackage rec {
+        pname = "zap";
+        version = "0.6.28";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "red-blox";
+          repo = pname;
+          rev = "v${version}";
+          sha256 = "sha256-zotSCmswJ/4oAiG8LW68REhxeSWbUeneJF/G9oBtvEw";
+        };
+
+        cargoHash = "sha256-qh+rUD4zRG3sNQPa1kGjxEuhKdqICedGik6qnt1K5CU=";
+
+        doCheck = false;
+      }
+    )
 
     (python3.withPackages (ps: with ps; [pwntools cryptography]))
     pyright
