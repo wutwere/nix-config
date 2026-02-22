@@ -248,8 +248,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "wutwere";
             repo = "rose-pine-tmux";
-            rev = "bd7521651485eb6c3ede94d6dd6b7d521ec5c0a9";
-            sha256 = "sha256-ARwOoUjE4ZxuMkyYtgXrpOmr4fHf/68sSSCmpzajwi4";
+            rev = "2e1afab56b3ea2ee24555cf9fe917b29edfe2c30";
+            sha256 = "sha256-oWiNcQE30VJqAxoU1jDTG4Xts89qVp5jX/AM321gs6E";
           };
         }
       ))
@@ -264,11 +264,11 @@
       set -g history-limit 50000       # increase history size (from 2,000)
       set -g renumber-windows on       # renumber all windows when any window is closed
       set -g set-clipboard on          # use system clipboard
-      set -g status-position bottom    # macOS / darwin style
+      set -g status-position top       # macOS / darwin style
       set -g mouse on
       set -g repeat-time 0
       set -g mode-style "fg=black,bg=white"
-      set -g status-justify centre
+      set -g status-justify absolute-centre
       set -g popup-border-style "fg=red"
       set -g popup-border-lines "rounded"
       set -g default-shell "$SHELL"
@@ -295,7 +295,7 @@
       bind -r b switch-client -l
 
       bind -r x kill-pane
-      bind -r w kill-window
+      bind -r w kill-pane
       bind -r t new-window
 
       bind -r U 'copy-mode; send-keys -X halfpage-up'
