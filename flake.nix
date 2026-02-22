@@ -12,10 +12,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dotfiles = {
-      url = "github:wutwere/dotfiles/unstable";
-      flake = false;
-    };
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
     };
@@ -39,7 +35,6 @@
     nix-darwin,
     nixos-wsl,
     home-manager,
-    dotfiles,
     nix-homebrew,
     homebrew-bundle,
     homebrew-core,
@@ -60,7 +55,7 @@
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {inherit dotfiles;};
+            home-manager.extraSpecialArgs = {};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -77,7 +72,7 @@
 
           home-manager.darwinModules.home-manager
           {
-            home-manager.extraSpecialArgs = {inherit dotfiles;};
+            home-manager.extraSpecialArgs = {};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 

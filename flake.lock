@@ -17,23 +17,6 @@
         "type": "github"
       }
     },
-    "dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1770527898,
-        "narHash": "sha256-MonSJJwLwa0vMfd1pWMVsXTX31azMr9O3MMpDTP8EDI=",
-        "owner": "wutwere",
-        "repo": "dotfiles",
-        "rev": "59c4485223d4ba9241475c3d8a29c8ff2cf86f9e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wutwere",
-        "ref": "unstable",
-        "repo": "dotfiles",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -212,7 +195,6 @@
     },
     "root": {
       "inputs": {
-        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",

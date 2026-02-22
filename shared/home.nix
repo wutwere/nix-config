@@ -1,11 +1,11 @@
 {
   pkgs,
-  dotfiles,
+  config,
   ...
 }: {
   home.file = {
     ".config/nvim" = {
-      source = dotfiles + "/nvim/.config/nvim";
+      source = config.lib.file.mkOutOfStoreSymlink "/home/nixos/dotfiles/nvim/.config/nvim";
     };
     ".config/nixpkgs/config.nix".text = ''
       {
