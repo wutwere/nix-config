@@ -77,6 +77,7 @@
     # cargo-cross
 
     go
+    golangci-lint
     gopls
 
     gcc
