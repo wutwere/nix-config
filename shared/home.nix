@@ -83,6 +83,8 @@
     gcc
     clang-tools
 
+    bash-language-server
+
     # frida-tools
 
     # cava # new update broken on mac
