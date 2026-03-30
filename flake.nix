@@ -27,6 +27,7 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    pesde-nix.url = "github:lukadev-0/pesde-nix";
   };
 
   outputs = {
@@ -39,6 +40,7 @@
     homebrew-bundle,
     homebrew-core,
     homebrew-cask,
+    pesde-nix,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -55,7 +57,7 @@
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {};
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -67,12 +69,13 @@
 
     darwinConfigurations = {
       macbook = nix-darwin.lib.darwinSystem {
+        specialArgs = {inherit inputs self;};
         modules = [
           ./darwin/configuration.nix
 
           home-manager.darwinModules.home-manager
           {
-            home-manager.extraSpecialArgs = {};
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
@@ -93,7 +96,6 @@
             };
           }
         ];
-        specialArgs = {inherit inputs self;};
       };
     };
   };

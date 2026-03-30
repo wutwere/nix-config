@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: {
   home.file = {
@@ -61,6 +62,7 @@
         doCheck = false;
       }
     )
+    inputs.pesde-nix.packages.${pkgs.system}.default
 
     (python3.withPackages (ps: with ps; [pwntools cryptography]))
     pyright
