@@ -57,6 +57,7 @@
       "sf-symbols"
       "sioyek"
       "zoom"
+      "zen"
     ];
     brews = [
       "wally"

@@ -6,7 +6,7 @@
 }: {
   home.file = {
     ".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/home/nixos/dotfiles/nvim/.config/nvim";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim/.config/nvim";
     };
     ".config/nixpkgs/config.nix".text = ''
       {
@@ -64,7 +64,7 @@
     )
     inputs.pesde-nix.packages.${pkgs.system}.default
 
-    (python3.withPackages (ps: with ps; [pwntools cryptography]))
+    (pkgs.python3.withPackages (ps: with ps; [cryptography] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [pwntools]))
     pyright
     ruff
 
@@ -82,7 +82,12 @@
     golangci-lint
     gopls
 
-    gcc
+    # Only include GCC on Linux; macOS should use clang from stdenv or Xcode
+    (
+      if pkgs.stdenv.isLinux
+      then pkgs.gcc
+      else pkgs.stdenv.cc
+    )
     clang-tools
 
     bash-language-server
