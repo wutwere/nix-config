@@ -38,5 +38,4 @@
     vim
     wget
   ];
-  nixpkgs.config.allowUnfree = true;
 }

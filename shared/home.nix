@@ -8,11 +8,6 @@
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim/.config/nvim";
     };
-    ".config/nixpkgs/config.nix".text = ''
-      {
-        allowUnfree = true;
-      }
-    '';
   };
 
   home.sessionVariables = {
@@ -139,9 +134,11 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "wutwere";
-      email = "62412610+wutwere@users.noreply.github.com";
+    settings = {
+      user = {
+        name = "wutwere";
+        email = "62412610+wutwere@users.noreply.github.com";
+      };
       pull.rebase = true;
     };
   };
