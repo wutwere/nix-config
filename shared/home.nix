@@ -22,6 +22,8 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    neovim
+
     selene
     stylua
     lua-language-server
@@ -181,11 +183,6 @@
       gcloud.disabled = true;
       line_break.disabled = false;
     };
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
   };
 
   programs.zsh = {
@@ -383,5 +380,9 @@
         };
       };
     };
+  };
+
+  programs.codex = {
+    enable = true;
   };
 }

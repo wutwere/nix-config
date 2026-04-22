@@ -60,4 +60,3 @@ in
     writeShellScriptBin "rocale-cli" ''
       exec "${rocale-bin}/bin/rocale-cli" "$@"
     ''
-
