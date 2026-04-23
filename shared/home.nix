@@ -8,7 +8,11 @@
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim/.config/nvim";
     };
+
+    ".agents/skills/caveman/SKILL.md".source = ./opencode/skills/caveman/SKILL.md;
   };
+
+  xdg.configFile."opencode/AGENTS.md".source = ./opencode/AGENTS.md;
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -377,6 +381,21 @@
         };
       };
     };
+  };
+
+  programs.mcp = {
+    enable = true;
+    servers = {
+      nixos = {
+        command = "nix";
+        args = ["run" "github:utensils/mcp-nixos" "--"];
+      };
+    };
+  };
+
+  programs.opencode = {
+    enable = true;
+    enableMcpIntegration = true;
   };
 
   programs.codex = {

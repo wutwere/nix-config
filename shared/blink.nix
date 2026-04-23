@@ -10,7 +10,7 @@
     };
     aarch64-darwin = {
       url = "https://github.com/1Axen/blink/releases/download/v${version}/blink-macos-aarch64.tar.xz";
-      hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Update this
+      hash = "sha256-WEVFVPQRNNMVD0kQjhW62csOW1HMqD9NxNS5lGDcfG4=";
     };
   };
 
