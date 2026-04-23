@@ -14,14 +14,26 @@
 
   xdg.configFile."opencode/AGENTS.md".source = ./opencode/AGENTS.md;
 
+  sops = {
+    defaultSopsFile = ../secrets/common.yaml;
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    secrets.ROBLOX_INTEGTEST_API_KEY = {
+      path = "%r/ROBLOX_INTEGTEST_API_KEY";
+    };
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    SOPS_AGE_KEY_FILE = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   };
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     neovim
+
+    age
+    sops
 
     selene
     stylua
@@ -205,6 +217,13 @@
         nix-your-shell zsh | source /dev/stdin
       fi
 
+      # zsh-vi-mode
+      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+      function zvm_after_init() {
+        zvm_bindkey viins '^R' fzf-history-widget
+      }
+
       # Source zsh-abbr for Fish-like abbreviations
       export ABBR_QUIET=1
       export ABBR_QUIETER=1
@@ -216,12 +235,8 @@
       abbr --force ls='eza --icons --group-directories-first' > /dev/null 2>&1
       abbr --force l='eza -al --icons --group-directories-first' > /dev/null 2>&1
 
-      # zsh-vi-mode
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
-      function zvm_after_init() {
-        zvm_bindkey viins '^R' fzf-history-widget
-      }
+      # Ensure space expands in vi insert mode
+      bindkey -M viins ' ' abbr-expand-and-insert
     '';
   };
 

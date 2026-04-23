@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
     };
@@ -36,6 +40,7 @@
     nix-darwin,
     nixos-wsl,
     home-manager,
+    sops-nix,
     nix-homebrew,
     homebrew-bundle,
     homebrew-core,
@@ -65,6 +70,7 @@
             home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.sharedModules = [inputs.sops-nix.homeManagerModules.sops];
 
             home-manager.users.nixos = import ./wsl/home.nix;
           }
@@ -83,6 +89,7 @@
             home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.sharedModules = [inputs.sops-nix.homeManagerModules.sops];
 
             home-manager.users.robert = import ./darwin/home.nix;
           }
