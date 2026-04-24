@@ -13,6 +13,7 @@
   };
 
   xdg.configFile."opencode/AGENTS.md".source = ./opencode/AGENTS.md;
+  xdg.configFile."opencode/plugins/notify.js".source = ./opencode/plugins/notify.js;
 
   sops = {
     defaultSopsFile = ../secrets/common.yaml;
