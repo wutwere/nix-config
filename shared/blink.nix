@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}: let
+{pkgs, ...}: let
   inherit (pkgs) stdenv fetchurl xz buildFHSEnv writeShellScriptBin;
 
   version = "0.18.8";

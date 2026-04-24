@@ -20,6 +20,10 @@
     secrets.ROBLOX_INTEGTEST_API_KEY = {
       path = "%r/ROBLOX_INTEGTEST_API_KEY";
     };
+    secrets.SSH_EC2_PEM = {
+      path = "${config.home.homeDirectory}/.ssh/ec2.pem";
+      mode = "0400";
+    };
   };
 
   home.sessionVariables = {
@@ -156,6 +160,19 @@
         email = "62412610+wutwere@users.noreply.github.com";
       };
       pull.rebase = true;
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {};
+      "my-ec2" = {
+        hostname = "18.224.17.76";
+        user = "ec2-user";
+        identityFile = "${config.home.homeDirectory}/.ssh/ec2.pem";
+      };
     };
   };
 
@@ -378,26 +395,6 @@
     enableZshIntegration = true;
   };
 
-  programs.gemini-cli = {
-    enable = true;
-    settings = {
-      security = {
-        auth = {
-          selectedType = "oauth-personal";
-        };
-      };
-      general = {
-        previewFeatures = true;
-      };
-      mcpServers = {
-        nixos = {
-          command = "nix";
-          args = ["run" "github:utensils/mcp-nixos" "--"];
-        };
-      };
-    };
-  };
-
   programs.mcp = {
     enable = true;
     servers = {
@@ -411,9 +408,5 @@
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
-  };
-
-  programs.codex = {
-    enable = true;
   };
 }
