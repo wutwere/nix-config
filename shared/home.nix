@@ -295,8 +295,9 @@
         }
       ))
     ];
+    terminal = "tmux-256color";
     extraConfig = ''
-      set-option -g terminal-overrides ',xterm-256color:RGB'
+      set -as terminal-features ',xterm*:RGB'
 
       set -g prefix C-Space
       set -g base-index 1              # start indexing windows at 1 instead of 0
@@ -410,5 +411,11 @@
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
+    settings = {
+      autoupdate = false;
+    };
+    tui = {
+      theme = "system";
+    };
   };
 }
