@@ -45,7 +45,7 @@ OPENAI_API_KEY="$(< "$(getconf DARWIN_USER_TEMP_DIR)/openai_api_key")" my-cli
 combine both:
 
 ```bash
-ROBLOX_INTEGTEST_API_KEY="$(< "${XDG_RUNTIME_DIR:-$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null)/ROBLOX_INTEGTEST_API_KEY}")"
+ROBLOX_INTEGTEST_API_KEY="$(< "${XDG_RUNTIME_DIR:-$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null)}/ROBLOX_INTEGTEST_API_KEY")"
 ```
 
 ## 5) New machine restore

@@ -313,6 +313,7 @@
       set -g popup-border-style "fg=red"
       set -g popup-border-lines "rounded"
       set -g default-shell "$SHELL"
+      set -g allow-passthrough on
 
       setw -g mode-keys vi
 
