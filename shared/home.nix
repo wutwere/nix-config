@@ -23,7 +23,6 @@
     };
     secrets.SSH_EC2_PEM = {
       path = "${config.home.homeDirectory}/.ssh/ec2.pem";
-      mode = "0400";
     };
   };
 
@@ -63,23 +62,23 @@
         doCheck = false;
       }
     )
-    (
-      pkgs.rustPlatform.buildRustPackage rec {
-        pname = "zap";
-        version = "0.6.28";
-
-        src = pkgs.fetchFromGitHub {
-          owner = "red-blox";
-          repo = pname;
-          rev = "v${version}";
-          sha256 = "sha256-zotSCmswJ/4oAiG8LW68REhxeSWbUeneJF/G9oBtvEw";
-        };
-
-        cargoHash = "sha256-qh+rUD4zRG3sNQPa1kGjxEuhKdqICedGik6qnt1K5CU=";
-
-        doCheck = false;
-      }
-    )
+    # (
+    #   pkgs.rustPlatform.buildRustPackage rec {
+    #     pname = "zap";
+    #     version = "0.6.28";
+    #
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "red-blox";
+    #       repo = pname;
+    #       rev = "v${version}";
+    #       sha256 = "sha256-zotSCmswJ/4oAiG8LW68REhxeSWbUeneJF/G9oBtvEw";
+    #     };
+    #
+    #     cargoHash = "sha256-qh+rUD4zRG3sNQPa1kGjxEuhKdqICedGik6qnt1K5CU=";
+    #
+    #     doCheck = false;
+    #   }
+    # )
     inputs.pesde-nix.packages.${pkgs.system}.default
 
     (pkgs.python3.withPackages (ps: with ps; [cryptography] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [pwntools]))
