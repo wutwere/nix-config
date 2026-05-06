@@ -230,7 +230,7 @@
 
     initContent = ''
       # Nix-your-shell for seamless shell integration in nix-shell/nix develop
-      if command -v nix-your-shell > /dev/null; then
+      if command -v nix-your-shell > /dev/null && [[ -t 0 ]] && [[ -t 1 ]]; then
         nix-your-shell zsh | source /dev/stdin
       fi
 
