@@ -61,6 +61,7 @@
     ];
     brews = [
       "wally"
+      "pngpaste"
     ];
   };
 
