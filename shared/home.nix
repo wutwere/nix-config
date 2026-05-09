@@ -43,6 +43,7 @@
     stylua
     lua-language-server
     luau
+    (pkgs.callPackage ./lute.nix {})
     luau-lsp
     rojo
     (
@@ -409,6 +410,20 @@
 
   programs.opencode = {
     enable = true;
+    package = let
+      opencodePkgs =
+        import (builtins.fetchTree {
+          type = "github";
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = "c6d65881c5624c9cae5ea6cedef24699b0c0a4c0";
+          narHash = "sha256-WNGcmeOZ8Tr9dq6ztCspYbzWFswr2mPebM9LpsfGxPk=";
+        }) {
+          system = pkgs.stdenv.hostPlatform.system;
+          config.allowUnfree = config.nixpkgs.config.allowUnfree or false;
+        };
+    in
+      opencodePkgs.opencode;
     enableMcpIntegration = true;
     settings = {
       autoupdate = false;
