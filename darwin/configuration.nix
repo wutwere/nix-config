@@ -42,6 +42,7 @@
       "basictex"
       "bitwarden"
       "coconutbattery"
+      # "floorp"
       "font-jetbrains-mono-nerd-font"
       "font-meslo-lg-nerd-font"
       "font-monaspace"
@@ -57,7 +58,7 @@
       "sf-symbols"
       "sioyek"
       "zoom"
-      "zen"
+      # "zen"
     ];
     brews = [
       "wally"
