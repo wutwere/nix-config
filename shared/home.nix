@@ -30,6 +30,9 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    (pkgs.callPackage ./openchamber.nix {})
+    gnumake
+
     neovim
 
     age
@@ -42,6 +45,8 @@
     (pkgs.callPackage ./lute.nix {})
     luau-lsp
     rojo
+    (pkgs.callPackage ./rocale-cli.nix {})
+    (pkgs.callPackage ./blink.nix {})
     (
       pkgs.rustPlatform.buildRustPackage rec {
         pname = "wally-package-types";
@@ -59,26 +64,8 @@
         doCheck = false;
       }
     )
-    # (
-    #   pkgs.rustPlatform.buildRustPackage rec {
-    #     pname = "zap";
-    #     version = "0.6.28";
-    #
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "red-blox";
-    #       repo = pname;
-    #       rev = "v${version}";
-    #       sha256 = "sha256-zotSCmswJ/4oAiG8LW68REhxeSWbUeneJF/G9oBtvEw";
-    #     };
-    #
-    #     cargoHash = "sha256-qh+rUD4zRG3sNQPa1kGjxEuhKdqICedGik6qnt1K5CU=";
-    #
-    #     doCheck = false;
-    #   }
-    # )
     inputs.pesde-nix.packages.${pkgs.system}.default
 
-    (pkgs.callPackage ./openchamber.nix {})
     (pkgs.python3.withPackages (ps: with ps; [cryptography] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [pwntools]))
     pyright
     ruff
