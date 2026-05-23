@@ -409,9 +409,29 @@
     in
       opencodePkgs.opencode;
     enableMcpIntegration = true;
-    settings = {
-      autoupdate = false;
-    };
+    settings =
+      {
+        autoupdate = false;
+      }
+      // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux (let
+        agentsWikiDir = "${config.home.homeDirectory}/dev/agents-wiki/wiki";
+      in {
+        "$schema" = "https://opencode.ai/config.json";
+        instructions = ["${config.home.homeDirectory}/dev/agents-wiki/AGENTS.md"];
+        permission = {
+          external_directory = {
+            "${agentsWikiDir}" = "allow";
+            "${agentsWikiDir}/**" = "allow";
+          };
+          read = {
+            "${agentsWikiDir}" = "allow";
+            "${agentsWikiDir}/**" = "allow";
+          };
+          edit = {
+            "${agentsWikiDir}/**" = "allow";
+          };
+        };
+      });
     tui = {
       theme = "system";
     };
