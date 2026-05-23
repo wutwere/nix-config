@@ -38,4 +38,6 @@
     vim
     wget
   ];
+
+  services.tailscale.enable = true;
 }

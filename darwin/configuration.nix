@@ -66,6 +66,8 @@
     ];
   };
 
+  services.tailscale.enable = true;
+
   # services.yabai = {
   #   enable = true;
   # };

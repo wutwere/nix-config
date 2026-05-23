@@ -8,11 +8,7 @@
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim/.config/nvim";
     };
-
-    ".agents/skills/caveman/SKILL.md".source = ./opencode/skills/caveman/SKILL.md;
   };
-
-  xdg.configFile."opencode/AGENTS.md".source = ./opencode/AGENTS.md;
   xdg.configFile."opencode/plugins/notify.js".source = ./opencode/plugins/notify.js;
 
   sops = {
@@ -82,6 +78,7 @@
     # )
     inputs.pesde-nix.packages.${pkgs.system}.default
 
+    (pkgs.callPackage ./openchamber.nix {})
     (pkgs.python3.withPackages (ps: with ps; [cryptography] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [pwntools]))
     pyright
     ruff
