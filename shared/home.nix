@@ -273,14 +273,20 @@
           src = pkgs.fetchFromGitHub {
             owner = "wutwere";
             repo = "rose-pine-tmux";
-            rev = "6bda1227abb3fa79b26151af66675fb98c39220a";
-            sha256 = "sha256-r81yZXKCPj0r3qcEdd2CdBDARxU9Ik6hISktPK5HCJE=";
+            rev = "abac7ea2df5e65f078b18cf7846b3adc9068bc6e";
+            sha256 = "sha256-2Ix4AKvjPbU6AUQHD7jlI5Q/gxws+Av33PCI2RrKFE0=";
           };
         }
       ))
     ];
-    terminal = "tmux-256color";
     extraConfig = ''
+      unbind U
+      unbind D
+
+      bind -r U 'copy-mode; send-keys -X halfpage-up'
+      bind -r D 'copy-mode; send-keys -X halfpage-down'
+
+      set -g default-terminal 'tmux-256color'
       set -as terminal-features ',xterm*:RGB'
 
       set -g prefix C-Space
@@ -290,7 +296,7 @@
       set -g history-limit 50000       # increase history size (from 2,000)
       set -g renumber-windows on       # renumber all windows when any window is closed
       set -g set-clipboard on          # use system clipboard
-      set -g status-position top       # macOS / darwin style
+      set -g status-position bottom
       set -g mouse on
       set -g repeat-time 0
       set -g mode-style "fg=black,bg=white"
@@ -325,8 +331,8 @@
       bind -r w kill-pane
       bind -r t new-window
 
-      bind -r U 'copy-mode; send-keys -X halfpage-up'
-      bind -r D 'copy-mode; send-keys -X halfpage-down'
+      unbind [
+      bind [ run-shell "~/dotfiles/tmux/copy_mode_with_line_numbers.sh"
     '';
   };
 
